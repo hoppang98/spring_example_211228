@@ -5,7 +5,9 @@
  
  <mapper namespace="com.marobiana.ex.lesson04.dao.NewStudentDAO">
  	
- 	<insert id="insertStudent" parameterType="com.marobiana.ex.lesson04.model.NewStudent">
+ 	<insert id="insertStudent" parameterType="com.marobiana.ex.lesson04.model.NewStudent"
+ 	useGeneratedKeys="true" keyProperty="id">
+ 	<!-- 입력과 동시에 id값이 필요한 경우 - useGeneratedKeys="true" keyProperty="id" = insert와 동시에 id값을 가져온다. parameterType이 클래스인 경우에만 사용 가능하다. 둘이 세트-->
  		INSERT INTO `new_student`
  		(
  			`name`

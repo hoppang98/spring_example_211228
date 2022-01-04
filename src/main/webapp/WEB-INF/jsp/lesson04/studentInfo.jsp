@@ -13,11 +13,15 @@
 </head>
 <body>
 	<div class="container">
+	
+		<div>id</div>
+		<div><b>${result.id }</b></div> <!-- id가져오려면 mapper에서 useGeneratedKeys="true" keyProperty="id" 필요 -->
+		
 		<div>이름</div>
-		<div>${result.name }</div>
+		<div><b>${result.name }</b></div>
 		
 		<div>휴대폰 번호</div>
-		<div>${result.phoneNumber }</div>
+		<div><b>${result.phoneNumber }</b></div>
 	</div>
 </body>
 </html>
