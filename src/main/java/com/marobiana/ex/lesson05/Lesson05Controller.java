@@ -1,6 +1,7 @@
 package com.marobiana.ex.lesson05;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,18 @@ public class Lesson05Controller {
 	
 	
 	@GetMapping("/lesson05/ex03")
-	public String ex03() {
+	public String ex03(Model model) {
+		
+		Date today = new Date(); // Model model로 모델화
+		
+		model.addAttribute("today", today); // jsp에서 사용할 수 있도록
+		
 		return "/lesson05/ex03";
+	}
+	
+	
+	@GetMapping("/lesson05/ex04")
+	public String ex03() {
+		return "/lesson05/ex04";
 	}
 }

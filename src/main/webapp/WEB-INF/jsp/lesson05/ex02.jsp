@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JSTL core 라이브러리</title>
+<title>조건문</title>
 </head>
 <body>
 	
