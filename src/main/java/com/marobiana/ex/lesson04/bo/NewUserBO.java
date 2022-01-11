@@ -16,7 +16,7 @@ public class NewUserBO {
 		return newUserDAO.insertUser(name, yyyymmdd, email, introduce);
 	}
 	
-	//한가지 행만 선택해서 가죠오기
+	//한가지 행만 선택해서 가져오기
 	public NewUser getUser(int id) {
 		return newUserDAO.selectUser(id);
 	}
