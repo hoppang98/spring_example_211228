@@ -46,6 +46,7 @@ public class NewUserController {
 		model.addAttribute("result", user); // model에 key-value방식으로 세팅중 -> userInfo.jsp에서 ${key.value} 방식으로 뽑아온다
 		model.addAttribute("subject", "회원정보");
 		
+		
 		return "lesson04/userInfo";
 	}
 }
