@@ -14,18 +14,23 @@
 </head>
 <body>
 	<h1>회원 정보 추가</h1>
-	<form method="post" action="/lesson06/ex01/add_user" id="joinForm"> 
-		<label>이름</label><input type="text" name="name" id="nameInput"> <br> 				<%-- id는 script에서 사용하기 위해서 만들었다. --%>
+	<form method="post" action="/lesson06/ex01/add_user" id="joinForm"> <%-- id는 script에서 사용하기 위해서 만들었다. --%>
+		<label>이름</label><input type="text" name="name" id="nameInput"> 
+		<button type="button" id="duplicateBtn">중복확인</button> 
+		<br> 				
 		<label>생년월일</label><input type="text" name="yyyymmdd" id="yyyymmddInput"> <br>
 		<label>자기소개</label><br>
 		<textarea rows="10" cols="50" name="introduce" id="introduceInput"></textarea> <br>
 		<label>이메일 주소:</label><input type="text" name="email" id="emailInput"> <br>
-		<button type="submit" id="submitBtn">추가</button> <%-- 1번 방법 / submit은 enter키가 눌린다. --%>
-		<%-- <button type="button" id="addBtn">추가</button>  2번 방법은 편리하지만 enter키가 안눌린다. --%>
+		<!--  <button type="submit" id="submitBtn">추가</button>--> <%-- 1번 방법 / submit은 enter키가 눌린다. --%>
+		<button type="button" id="addBtn">추가</button>  <%-- 2번 방법은 편리하지만 enter키가 안눌린다. --%>
 	</form>			
 	
 	<script>
 		$(document).ready(function() {	// 내용이 제대로 입력되었는지 확인 = validation check
+			
+			var isDuplicateName = true; // 중복체크 확인용 변수
+			
 			// $("submitBtn").on("click", function())) 	// id=submitBtn이 클릭되었을 때
 			//1번 방법 / submit 방식은 enter키가 눌린다. 따라서 로그인 서비스에는 submit이 좋다
 			$("#joinForm").on("submit", function(){ //form은 <script> 내용을 무시하고 데이터를 보낸다.위와 다르게 click이벤트가 아닌 submit에서 데이터를 가로채야한다.
@@ -85,6 +90,15 @@
 						alert("이름을 입력하세요");
 						return; // return false를 해야 submit을 중단한다. 그냥 return은 중단 없이 진행함
 					}
+					
+					//중복체크 유효성 검사(아래쪽 ajax)
+					if(isDuplicateName) {
+						alert("중복된 이름입니다.");
+						return;
+					}
+				
+					
+					
 					if(yyyymmdd == "") {
 						alert("생일을 입력하세요");
 						return;
@@ -116,6 +130,37 @@
 					});
 
 					return false;
+			});
+			
+			
+			// 이름 중복확인
+			$("#duplicateBtn").on("click", function(){
+				let name = $("#nameInput").val();
+				
+				if(name == "") {
+					alert("이름을 입력해 주세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"get"
+					,url:"/lesson06/ex02/duplicate_name"
+					,data:{"name":name}
+					,success:function(data) {
+						//jquery에서는 json으로 전달되는 데이터(지금은 map형태{isDuplucate, "false"}, {isDuplucate, "true"})를 객체형태로 받아서 ajax에서 바로 사용 가능
+						if(data.isDuplicate == "true") {
+							alert("중복입니다.");
+							isDuplicateName = true;
+						} else {
+							alert("사용 가능합니다");
+							isDuplicateName = false;
+						}
+					}
+					,error:function(){
+						alert("에러발생");
+					}
+				});
+				
 			});
 			
 			

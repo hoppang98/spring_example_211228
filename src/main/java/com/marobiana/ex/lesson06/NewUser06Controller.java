@@ -1,5 +1,8 @@
 package com.marobiana.ex.lesson06;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,7 @@ public class NewUser06Controller {
 		return "/lesson06/addUser";
 	}
 	
-	@ResponseBody
+	@ResponseBody //데이터만 건드는 경우는 @ResponseBody
 	@PostMapping("/lesson06/ex01/add_user") 
 	public String ex02(
 			@RequestParam("name") String name, 					
@@ -36,7 +39,24 @@ public class NewUser06Controller {
 		} else {
 			return "fail";
 		}
-		
 	}
+	
+	@ResponseBody //데이터만 건드는 경우는 @ResponseBody
+	@GetMapping("/lesson06/ex02/duplicate_name")
+	public Map<String, String> duplicateName (				//map형태로 만들어서 String형태로 return이 아니고 map형태로 return
+			@RequestParam("name") String name
+			) {
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(newUserBO.isDuplicateName(name)) {
+			result.put("isDuplicate", "true");
+		} else {
+			result.put("isDuplicate", "false");
+		}
+		
+		return result;
+	}
+	
 }
 

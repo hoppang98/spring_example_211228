@@ -41,4 +41,14 @@
 		WHERE
 			`id` = #{id}
  	</select>
+ 	
+ 	<!-- lesson06 중복확인 -->
+ 	<select id="selectCountName" parameterType="String" resultType="int"> <!-- 중복되는 갯수를 반환하니까 resultType은 int -->
+ 		SELECT
+ 			count(*)
+ 		FROM
+ 			`new_user`
+ 		WHERE
+ 			`name` = #{name}
+ 	</select>
  </mapper>
