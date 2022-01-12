@@ -32,7 +32,7 @@ public class NewUser06Controller {
 		int count = newUserBO.addUser(name, yyyymmdd, email, introduce);				// lesson04의 bo 활용
 		
 		if(count == 1) {
-			return "success";
+			return "success"; // jsp의 ajax를 위한 데이터
 		} else {
 			return "fail";
 		}
